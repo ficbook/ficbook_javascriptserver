@@ -1,0 +1,30 @@
+{
+  "webserver":{
+    "host":"0.0.0.0",
+    "port":"8070"
+  },
+  "instans":{
+    "host":"0.0.0.0",
+    "port":"7070"
+  },
+  "database":{
+    "host":"localhost",
+    "port":"3306",
+    "user":"fbuser",
+    "password":"PASSWORD",
+    "database":"fbchat"
+  },
+  "max":{
+   "login": "100",
+    "chat":{
+      "message": "100",
+      "topic": "100"
+      }
+  },
+  "power_level":{
+    "default": "0",
+    "user": "10",
+    "moderator": "100",
+    "administrator": "1000"
+  }
+}
