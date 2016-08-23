@@ -57,8 +57,46 @@ const chat = function(knex, logger){
                 });
         }
     };
+    const search = function(room_name, query,cb){
+        knex('chat_message_all')
+            .select(
+                'login',
+                'message',
+                'timestamp'
+            )
+            .join(
+                'chat_rooms',
+                'chat_rooms.id',
+                'chat_message_all.room_id'
+            )
+            .where(
+                'chat_rooms.name',
+                room_name
+            )
+            .andWhere(                
+                'message','like', query
+            )
+            .limit(100) //FiXMe
+            .then(
+                function(rows) {
+                    if (rows.length === 0) {
+                        cb([]);
+                    } else {
+                        rows.forEach(function(item,i,arr){
+                            item.login = item.login.toString();
+                        });
+                        cb(rows);          
+                    }
+                })
+            .catch(function(e) {
+                logger.error(e);
+            });
+        
+    };
+    
     this.history = history;
     this.message = message;
+    this.search = search;
 };
 
 module.exports.chat = chat;

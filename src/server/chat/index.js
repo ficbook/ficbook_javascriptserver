@@ -27,15 +27,15 @@ const chat = function(confPower, nddb, logger){
                                 item.users.forEach(function(user,j,arr2){
                                     if (user.ws.readyState === user.ws.OPEN) {
                                         try{   
-                                        user.ws.send(
-                                            JSON.stringify({
-                                                "type":"chat",
-                                                "object":"message",
-                                                "user": login,
-                                                "room_name": event.room_name,
-                                                "message": event.message,
-                                                "time": time
-                                            }));
+                                            user.ws.send(
+                                                JSON.stringify({
+                                                    "type":"chat",
+                                                    "object":"message",
+                                                    "user": login,
+                                                    "room_name": event.room_name,
+                                                    "message": event.message,
+                                                    "time": time
+                                                }));
                                         }catch(err){
                                             logger.info("Ошибка отправки сообщения для закрытого сокета юзаера", user.login);                                                                                                           
                                         }}});
@@ -81,15 +81,15 @@ const chat = function(confPower, nddb, logger){
                     } else {
                         if(ws.readyState == ws.OPEN){
                             try{                            
-                            ws.send(
-                                JSON.stringify({
-                                    'type':'status',
-                                    'action':'get',
-                                    'status':'error',
-                                    'cause':'room not exist',
-                                    'object':'history',
-                                    'subject':'room should exist'
-                                }));
+                                ws.send(
+                                    JSON.stringify({
+                                        'type':'status',
+                                        'action':'get',
+                                        'status':'error',
+                                        'cause':'room not exist',
+                                        'object':'history',
+                                        'subject':'room should exist'
+                                    }));
                             }catch(err){
                                 logger.info('Ошибка отправки сообщения об ошибке получения истории для ', login);
                             }}}}
@@ -128,6 +128,24 @@ const chat = function(confPower, nddb, logger){
             }
             break;
 
+        case 'search':
+            if((event.room_name!==undefined)&&(event.query!==undefined)){
+                nddb.chat.search(event.room_name, event.query, function(row){
+                    if (ws.readyState === ws.OPEN) {
+                        try{   
+                            ws.send(
+                                JSON.stringify({
+                                    "type":"chat",
+                                    "action":"search",
+                                    "room_name": event.room_name,
+                                    "query":event.query,
+                                    "history": row
+                                }));
+                        }catch(err){
+                            logger.info("Ошибка отправки сообщения для закрытого сокета юзаера", login);                            
+                        }}});
+            }            
+            break;
         case 'kik':
             switch(event.subject){
             case "id":
