@@ -76,6 +76,7 @@ const chat = function(knex, logger){
             .andWhere(                
                 'message','like', '%'+query+'%'
             )
+            .orderBy('chat_message_all.id','desc')
             .limit(100) //FiXMe
             .then(
                 function(rows) {
