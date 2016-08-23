@@ -74,7 +74,7 @@ const chat = function(knex, logger){
                 room_name
             )
             .andWhere(                
-                'message','like', query
+                'message','like', '%'+query+'%'
             )
             .limit(100) //FiXMe
             .then(
