@@ -136,7 +136,7 @@ const chat = function(confPower, nddb, logger){
                             ws.send(
                                 JSON.stringify({
                                     "type":"chat",
-                                    "action":"search",
+                                    "object": "search",
                                     "room_name": event.room_name,
                                     "query":event.query,
                                     "history": row

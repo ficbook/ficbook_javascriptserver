@@ -85,6 +85,7 @@ const chat = function(knex, logger){
                     } else {
                         rows.forEach(function(item,i,arr){
                             item.login = item.login.toString();
+                            item.timestamp = item.timestamp.getTime(); //It is MAGIK
                         });
                         cb(rows);          
                     }
