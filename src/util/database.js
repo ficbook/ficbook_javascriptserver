@@ -10,5 +10,6 @@ const nddb = new ddb();
 
 nddb.init_db();
 nddb.close();
+
 console.log('db util');
 
