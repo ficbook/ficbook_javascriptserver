@@ -18,15 +18,14 @@ const chat = function(confPower, nddb, logger){
                             login, event.message, event.room_name,
                             function(){
                                 logger.info(login,'to',event.room_name,'message:', event.message);
-                                
                             });
-                        //rooms[].users[].login;        
+                        //rooms[].users[].login;
                         rooms.forEach(function(item,i,arr){
                             if(item.name===event.room_name){
                                 const time = Date.now();
                                 item.users.forEach(function(user,j,arr2){
                                     if (user.ws.readyState === user.ws.OPEN) {
-                                        try{   
+                                        try{
                                             user.ws.send(
                                                 JSON.stringify({
                                                     "type":"chat",
@@ -37,7 +36,7 @@ const chat = function(confPower, nddb, logger){
                                                     "time": time
                                                 }));
                                         }catch(err){
-                                            logger.info("Ошибка отправки сообщения для закрытого сокета юзаера", user.login);                                                                                                           
+                                            logger.info("Ошибка отправки сообщения для закрытого сокета юзаера", user.login);
                                         }}});
                             }});
                     } else {
@@ -51,7 +50,7 @@ const chat = function(confPower, nddb, logger){
                 break;
             }
             break;
-            
+
         case 'get':
             switch(event.subject){
             case "history":
@@ -68,19 +67,19 @@ const chat = function(confPower, nddb, logger){
                                     messages[i].timestamp = Date.parse(messages[i].timestamp);
                                 }
                                 if(ws.readyState == ws.OPEN){
-                                    try{    
+                                    try{
                                         ws.send(
-                                            JSON.stringify({                                   
+                                            JSON.stringify({
                                                 "type":"history",
                                                 "name":event.room_name,
                                                 "messages": messages
                                             }));
                                     }catch(err){
-                                        logger.info('Ошибка отправки сообщений истории для', login);                                        
+                                        logger.info('Ошибка отправки сообщений истории для', login);
                                     }}});
                     } else {
                         if(ws.readyState == ws.OPEN){
-                            try{                            
+                            try{
                                 ws.send(
                                     JSON.stringify({
                                         'type':'status',
@@ -95,31 +94,30 @@ const chat = function(confPower, nddb, logger){
                             }}}}
 
                 break;
-                
+
             case "participants":
                 let users=[];
                 if(event.room_name){
                     for(let i=0; i<rooms.length;i++){
                         if(rooms[i].name === event.room_name){
-                            for(let j=0;j<rooms[i].users.length; j++){                                
+                            for(let j=0;j<rooms[i].users.length; j++){
                                 if(rooms[i].users[j].ws.readyState===rooms[i].users[j].ws.OPEN){
                                     users.push(rooms[i].users[j].login);
                                 }}
-                            for(let j=0;j<rooms[i].users.length; j++){                                
-                                if(rooms[i].users[j].ws.readyState===rooms[i].users[j].ws.OPEN){
-                                    if(ws.readyState == ws.OPEN){
-                                        try{
-                                            ws.send(
-                                                JSON.stringify({
-                                                    type:'chat',
-                                                    action:'get',
-                                                    object:'participants',
-                                                    room_name:event.room_name,
-                                                    participants: users
-                                                }));
-                                        }catch(err){
-                                            logger.info('Ошибка отправки колличества учестников в комнате для пользователя ', login, ' в комнате ',event.room_name);
-                                        }}}}}}}                        
+                            if(ws.readyState == ws.OPEN){
+                                try{
+                                    ws.send(
+                                        JSON.stringify({
+                                            type:'chat',
+                                            action:'get',
+                                            object:'participants',
+                                            room_name:event.room_name,
+                                            participants: users
+                                        }));
+                                }catch(err){
+                                    logger.info('Ошибка отправки колличества учестников в комнате для пользователя ', login, ' в комнате ',event.room_name);
+                                }}
+                        }}}
                 break;
             case "bans":
                 break;
@@ -132,7 +130,7 @@ const chat = function(confPower, nddb, logger){
             if((event.room_name!==undefined)&&(event.query!==undefined)){
                 nddb.chat.search(event.room_name, event.query, function(row){
                     if (ws.readyState === ws.OPEN) {
-                        try{   
+                        try{
                             ws.send(
                                 JSON.stringify({
                                     "type":"chat",
@@ -142,9 +140,9 @@ const chat = function(confPower, nddb, logger){
                                     "history": row
                                 }));
                         }catch(err){
-                            logger.info("Ошибка отправки сообщения для закрытого сокета юзаера", login);                            
+                            logger.info("Ошибка отправки сообщения для закрытого сокета юзаера", login);
                         }}});
-            }            
+            }
             break;
         case 'kik':
             switch(event.subject){
@@ -177,7 +175,7 @@ const chat = function(confPower, nddb, logger){
 
         default:
             break;
-            
+
         }
     };
     this.chat = chat;
