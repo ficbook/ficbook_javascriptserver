@@ -282,7 +282,7 @@ wsServer.on('connection', function(ws){
                                                     rooms[i].users[k].ws.close(4006,event.message);                                                    
                                                 }}}}}}
                             for(let i = 0; i < peers.length; i++) {
-                                if (peers[i].login===event.username) {
+                                if (peers[i].login===event.user_name) {
                                     peers[i].ws.close(4006,event.message);                                    
                                 }
                             }
@@ -311,7 +311,7 @@ wsServer.on('connection', function(ws){
                                                     }}}}}}
 
                             for(let i = 0; i < peers.length; i++) {
-                                if (peers[i].login===event.username) {
+                                if (peers[i].login===event.user_name) {
                                     peers[i].ws.close(4006,event.message);                                    
                                 }
                             }
