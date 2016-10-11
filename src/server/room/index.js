@@ -185,6 +185,22 @@ const room = function(powerConfig,  nddb,  logger ){
                             }
                             logger.info(topic);
                         });
+
+                    nddb.room.get.about(
+                        event.room_name,function(about){
+                            try{
+                                ws.send(
+                                    JSON.stringify({
+                                        type:'room',
+                                        action:'get',
+                                        room_name:event.room_name,
+                                        about:about[0].about
+                                    }));
+                            } catch(err){
+                                logger.info('Отправка в закрытый сокет ответа для ',login,' на получение about',event.room_name);
+                            }
+                            logger.info(about);
+                        });
                 } else{
                     logger.info('неуказана комната');
                 }
