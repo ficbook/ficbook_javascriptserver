@@ -91,7 +91,7 @@ const room = function(powerConfig,  nddb,  logger ){
                 break;
                 
             case "about":
-                if(power >= powerConfig.administrator){
+                if(power >= powerConfig.moderator){
                     if(event.about){
                         nddb.room.set.about(
                             event.room_name,event.about);
@@ -167,7 +167,24 @@ const room = function(powerConfig,  nddb,  logger ){
                                 }));
                             } catch(err){
                                 logger.info('Ошибка отправки истории для', login);
-                            }});                                                    
+                            }});
+
+                    nddb.room.get.topic(
+                        event.room_name,
+                        function(topic){
+                            try{
+                                ws.send(
+                                    JSON.stringify({
+                                        type:'room',
+                                        action:'get',
+                                        room_name:event.room_name,
+                                        topic:topic[0].topic
+                                    }));
+                            }catch(err){
+                                logger.info('Отправка в закрытый сокет ответа для ',login,' на получение topic',event.room_name);
+                            }
+                            logger.info(topic);
+                        });
                 } else{
                     logger.info('неуказана комната');
                 }
