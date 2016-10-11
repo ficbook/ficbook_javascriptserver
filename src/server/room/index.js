@@ -15,7 +15,7 @@ const room = function(powerConfig,  nddb,  logger ){
                             ws.send(
                                 JSON.stringify({
                                     type:'room',
-                                    action:'get',
+                                    object:'topic',
                                     room_name:event.room_name,
                                     topic:topic[0].topic
                                 }));
@@ -32,7 +32,7 @@ const room = function(powerConfig,  nddb,  logger ){
                         ws.send(
                             JSON.stringify({
                                 type:'room',
-                                action:'get',
+                                object:'about',
                                 room_name:event.room_name,
                                 about:about[0].about
                             }));
@@ -169,22 +169,22 @@ const room = function(powerConfig,  nddb,  logger ){
                                 logger.info('Ошибка отправки истории для', login);
                             }});
 
-                    nddb.room.get.topic(
-                        event.room_name,
-                        function(topic){
-                            try{
-                                ws.send(
-                                    JSON.stringify({
-                                        type:'room',
-                                        action:'get',
-                                        room_name:event.room_name,
-                                        topic:topic[0].topic
-                                    }));
-                            }catch(err){
-                                logger.info('Отправка в закрытый сокет ответа для ',login,' на получение topic',event.room_name);
-                            }
-                            logger.info(topic);
-                        });
+                    // nddb.room.get.topic(
+                    //     event.room_name,
+                    //     function(topic){
+                    //         try{
+                    //             ws.send(
+                    //                 JSON.stringify({
+                    //                     type:'room',
+                    //                     object:'topic',
+                    //                     room_name:event.room_name,
+                    //                     topic:topic[0].topic
+                    //                 }));
+                    //         }catch(err){
+                    //             logger.info('Отправка в закрытый сокет ответа для ',login,' на получение topic',event.room_name);
+                    //         }
+                    //         logger.info(topic);
+                    //     });
 
                     nddb.room.get.about(
                         event.room_name,function(about){
@@ -192,7 +192,7 @@ const room = function(powerConfig,  nddb,  logger ){
                                 ws.send(
                                     JSON.stringify({
                                         type:'room',
-                                        action:'get',
+                                        object:'about',
                                         room_name:event.room_name,
                                         about:about[0].about
                                     }));
