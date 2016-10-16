@@ -133,22 +133,32 @@ const administration = function(confPower, nddb, logger){
             }
             break;
             
-        case 'kik':       
-            if((event.user_name)&&(event.message)){
-                cb('kik');
-            }
+        case 'kik':
+            nddb.user.get_power(login, function(power_a){
+                logger.info('и силу получил я', power_a);
+                if(power_a >= confPower.moderator){                   
+                    nddb.user.get_power(event.user_name, function(power_b){
+                        logger.info('а мой противник получил', power_b);                       
+                        if((event.message)&&(power_a>power_b)){
+                            cb('kik');
+                        }
+                    });
+                }});            
             break;
 
         case 'ban':
 
-            nddb.user.get_power(login, function(power){
-                logger.info('и силу получил я', power);
-                if(power >= confPower.administrator){
-                    if((event.user_name)&&(event.message)&&(event.duration)){
+            nddb.user.get_power(login, function(power_a){
+                logger.info('и силу получил я', power_a);
+                if(power_a >= confPower.administrator){
+                    nddb.user.get_power(event.user_name, function(power_b){
+                        logger.info('а мой противник получил', power_b);                    
+                        if((event.user_name)&&(event.message)&&(event.duration)&&(power_a > power_b)){
                         logger.info('поля на месте');                        
                         nddb.administration.ban_user(event.user_name, login, event.message, event.duration);
                         cb('ban');
-                    }}});
+                    }});
+                }});
             
             break;
             
