@@ -1,15 +1,23 @@
 /*jshint esversion: 6 */
 /*globals require, __dirname, console*/
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-const webauth= function(login, password, cb){
+const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+const webauth= function(login, password, logger ,cb){
     const xhr = new XMLHttpRequest();
     const body = 'login=' + encodeURIComponent(login) +'&password=' + encodeURIComponent(password);
-    xhr.open("POST", 'https://ficbook.net/ajax/users/login', true);
+    xhr.open('POST', 'https://ficbook.net/ajax/users/login', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function(){
         if(xhr.readyState === 4){
-            cb(JSON.parse(xhr.responseText));
-        }        
+            let pars;
+            try{
+                pars = JSON.parse(xhr.responseText);
+                cb(pars);
+            } catch (err){
+                logger.error(err);
+                logger.info('Response text:',xhr.responseText);
+                cb([false, 'Какие-то проблемы с авторизацией на фикбуке. Эту ошибку мы в ближайшее время исправим (когда узнаем о ней)']);
+            }
+        }
     };
     xhr.send(body);    
 };
@@ -19,17 +27,17 @@ const authorization = function(confPower, nddb, logger){
         const elogin = event.login;
         const epassword = event.password;
         let registered;
-        logger.info("elogin:", elogin,"password", epassword);
+        logger.info('elogin:', elogin,'password', epassword);
         
         nddb.user.login(elogin , epassword, function(success){
             registered = success;
             logger.info('registered', registered);
             if(registered){
                 nddb.autorize.log(elogin);
-                logger.info("login:", elogin,"password:", epassword);
+                logger.info('login:', elogin,'password:', epassword);
                 ccb(registered);
             }else{
-                webauth(elogin,epassword,function(result){
+                webauth(elogin,epassword,logger,function(result){
                     console.log(result);
                     if(result[0]===true){
                         console.log(result[0]);

@@ -12,6 +12,7 @@
   "author": "Loty Gero <lotgyero@gmail.com>",
   "license": "GPL-3.0+",
   "dependencies": {
+    "babel-cli": "^6.18.0",
     "bufferutil": "^1.2.1",
     "config": "^1.21.0",
     "express": "^4.14.0",
