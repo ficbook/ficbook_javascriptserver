@@ -27,9 +27,9 @@ const administration = function(knex,logger){
                 'reason',
                 'time_expired'
             ).where(
-                'time_expired','>', Date.now()
+                'time_expired','<', Date.now()
             )
-            .orderBy('time_expired')
+            .orderBy('time_expired','desc')
             .then(
                 function(rows) {
                     if (rows.length === 0) {
