@@ -4,7 +4,7 @@ const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 const webauth= function(login, password, logger ,cb){
     const xhr = new XMLHttpRequest();
     const body = 'login=' + encodeURIComponent(login) +'&password=' + encodeURIComponent(password);
-    xhr.open('POST', 'https://ficbook.net/ajax/users/login', true);
+    xhr.open('POST', 'https://ficbook.net/login_check', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function(){
         if(xhr.readyState === 4){
@@ -19,7 +19,7 @@ const webauth= function(login, password, logger ,cb){
             }
         }
     };
-    xhr.send(body);    
+    xhr.send(body);
 };
 
 const authorization = function(confPower, nddb, logger){
@@ -28,7 +28,6 @@ const authorization = function(confPower, nddb, logger){
         const epassword = event.password;
         let registered;
         logger.info('elogin:', elogin,'password', epassword);
-        
         nddb.user.login(elogin , epassword, function(success){
             registered = success;
             logger.info('registered', registered);
@@ -38,8 +37,8 @@ const authorization = function(confPower, nddb, logger){
                 ccb(registered);
             }else{
                 webauth(elogin,epassword,logger,function(result){
-                    console.log(result);
-                    if(result[0]===true){
+                    console.log("Fullresult: ",result);
+                    if(result['result']===true){
                         console.log(result[0]);
                         nddb.user.add(elogin,epassword);
                         nddb.autorize.update_password(elogin,epassword);
@@ -51,13 +50,13 @@ const authorization = function(confPower, nddb, logger){
                                     'type':'status',
                                     'action':'authorization',
                                     'status':'error',
-                                    'message':result[1]                                
+                                    'message':result[1]
                                 }));
                         }catch(err){
                             logger.info('Ошибка ошибочного статуса авторизации для ',elogin);
                         }}});
-                
-                
+
+
                 //                logger.info("Ошибка авторизации", elogin);
                 //        ws.close(4001,'Неправильный логин или пароль');
                 // TODO довести до ума процедуру авторизации
@@ -70,25 +69,25 @@ const authorization = function(confPower, nddb, logger){
                 //                        'type':'status',
                 //                        'action':'authorization',
                 //                        'status':'error',
-                
+
                 //                        'message':'научимся работать с апи - будет статус'
                 // тут сообщение фикбука
-                /*              
+                /*
                                 'cause':'error in data',
                                 'object':'autorize data',
                                 'subject':'need be correct '
                 */
-                
+
                 //                    })
                 //                );
 
 
-                
-                
-                
+
+
+
             }});
     };
-    this.authorization = authorization;    
+    this.authorization = authorization;
 };
 
 
