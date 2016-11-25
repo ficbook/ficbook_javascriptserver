@@ -1,7 +1,7 @@
 const administration = function(knex,logger){
     const ban_user = (username_banned, username_banning, reason, duration) =>{
         const time_expired = Date.now() + duration;
-        logger.ingo(time_expired);
+        logger.info(time_expired);
         knex('bans_list')
             .insert({
                 'login_banned':username_banned,
