@@ -36,6 +36,7 @@ const administration = function(knex,logger){
                         cb([]);
                     } else {
                         rows.forEach(function(item,i,arr){
+                            item.time_expired = Date.parse(item.time_expired);
                             item.login_banned = item.login_banned.toString();
                             item.login_banning = item.login_banning.toString();
                             item.reason = item.reason.toString();
