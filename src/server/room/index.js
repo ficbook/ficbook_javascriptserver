@@ -95,6 +95,18 @@ const room = function(powerConfig,  nddb,  logger ){
                     if(event.about){
                         nddb.room.set.about(
                             event.room_name,event.about);
+                        try{
+                            ws.send(
+                            JSON.stringify({
+                                type:'room',
+                                object:'about',
+                                room_name:event.room_name,
+                                about:event.about
+                            }));
+                        } catch(err){
+                            logger.info('Отправка в закрытый сокет ответа для ',login,' на получение about',event.room_name);
+                        }
+                        logger.info(event.about);
                     } else  {
                         try{
                             ws.send(
