@@ -1,7 +1,6 @@
 /*jshint esversion: 6 */
 /*globals module */
 
-
 const rooms = function(powerConfig,  nddb, logger){
 
     const rooms_list =(cb)=>{
@@ -10,26 +9,26 @@ const rooms = function(powerConfig,  nddb, logger){
             logger.debug('Всего комнат',rooms.length);
             rooms.forEach(function(item, i, arr) {
                 const room={
-                    "name": item.name,
-                    "topic": item.topic,
-                    "about": item.about
+                    'name': item.name,
+                    'topic': item.topic,
+                    'about': item.about
                 };
                 logger.debug(room);
                 l_rooms.push(room);
             });
             cb(l_rooms);
-        });    
+        });
     };
-    
+
     this.list_rooms_from_db =(power, login, ws, event)=>{
         switch(event.action){
-        case "get":
+        case 'get':
 
             if(power=> powerConfig.user){
-                
+
                 rooms_list(function(rooms_l){
                     try{
-                    ws.send(
+                        ws.send(
                         JSON.stringify({
                             'type':'rooms',
                             'list': rooms_l
@@ -41,30 +40,30 @@ const rooms = function(powerConfig,  nddb, logger){
                 });
             } else{
                 try{
-                ws.send(
+                    ws.send(
                     JSON.stringify({
-                        'type':'status',                       
+                        'type':'status',
                         'action':'get',
                         'status':'error',
                         'cause':'too few',
                         'object':'rooms list',
                         'subject':'need more power'
-                    }));                
+                    }));
                 }catch(err){
                     logger.info('Ошибка: отправка сообщения об ошибке для', login);
                 }}
-            
+
             break;
-            
+
         default:
-            logger.info("действие",event,"Ошибка в комманде");
+            logger.info('действие',event,'Ошибка в комманде');
             break;
         }
     };
 
     this.list_rooms=(power, login, rooms, ws, event)=>{
         switch(event.action){
-        case "get":
+        case 'get':
             if(power=> powerConfig.user){
                 let rooms_on = rooms.map(function(room){
                     const name = room.name;
@@ -77,7 +76,7 @@ const rooms = function(powerConfig,  nddb, logger){
                             'count_users': count_users};
                 });
                 try{
-                ws.send(
+                    ws.send(
                     JSON.stringify({
                         'type':'rooms',
                         'list': rooms_on
@@ -87,22 +86,22 @@ const rooms = function(powerConfig,  nddb, logger){
                 }
             } else{
                 try{
-                ws.send(
+                    ws.send(
                     JSON.stringify({
-                        'type':'status',                        
+                        'type':'status',
                         'action':'get',
                         'status':'error',
                         'cause':'too few',
                         'object':'rooms list',
-                        'subject':'need more power'                        
+                        'subject':'need more power'
                     }));
                 }catch(err){
                     logger.info('Ошибка: отправка статуса об недостаточности силы для ', login);
-                }}                       
+                }}
             break;
-            
+
         default:
-            logger.info("действие",event,"Ошибка в комманде");
+            logger.info('действие',event,'Ошибка в комманде');
             break;
         }
     };
@@ -111,7 +110,7 @@ const rooms = function(powerConfig,  nddb, logger){
         rooms_list(function(rooms_list){
             cb(rooms_list);
         });
-    };  
+    };
 };
 
 module.exports.rooms = rooms;

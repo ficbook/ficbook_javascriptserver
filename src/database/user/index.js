@@ -6,11 +6,11 @@ const user = function(knex,logger){
         logger.info('вызван finduser');
         knex('users')
             .where({
-            login: username
-        }).select()
+                login: username
+            }).select()
             .then(function(rows) {
                 if (rows.length === 0) {
-                    logger.info("никого не найдено");
+                    logger.info('никого не найдено');
                     callback();
                 } else {
                     //logger.debug('найдено с помощью finduser',rows);
@@ -19,9 +19,9 @@ const user = function(knex,logger){
                         callback(item);
                     });
                 }
-            })       
+            })
             .catch(function(e){
-                logger.info("error in find user select",e);
+                logger.info('error in find user select',e);
             });
     };
     const adduser=(username,password)=>{
@@ -29,7 +29,7 @@ const user = function(knex,logger){
         knex('users').insert({
             login: username,
             password: password,
-            user_name: "NONE"
+            user_name: 'NONE'
         })
             .catch(function(e) {
                 logger.error(e);
@@ -38,12 +38,12 @@ const user = function(knex,logger){
 
     const get_power=(username, cc)=>{
         finduser(username, function(rr){
-            logger.debug("Начало поиска");      
+            logger.debug('Начало поиска');
             if(rr){
                 cc(rr.power);
             } else{
                 cc(0);
-                logger.debug("что-то никого не найдено");
+                logger.debug('что-то никого не найдено');
             }
         });
     };
@@ -51,13 +51,13 @@ const user = function(knex,logger){
     this.get_power=(username, cc)=>{
         get_power(username, cc);
     };
-    
+
     this.add =(username,password)=>{
         adduser(username,password);
     };
-    
+
     this.search=(username,cc)=>{
-        logger.info('Search:',username); 
+        logger.info('Search:',username);
         finduser(username, function(rr){
             cc(rr.password);
         });
@@ -65,17 +65,17 @@ const user = function(knex,logger){
 
     this.login=(login,password,ccc)=>{
         finduser(login, function(rr){
-            logger.info("Начало поиска");      
+            logger.info('Начало поиска');
             if(rr){
-                logger.info("Пользователь",login, "найден,проверяем переданный пароль", password );
+                logger.info('Пользователь',login, 'найден,проверяем переданный пароль', password );
                 if(password == rr.password){
-                    logger.info("Авторизация", login,"успешна");
+                    logger.info('Авторизация', login,'успешна');
                     ccc(true);
                 } else{
                     ccc(false);
                 }} else{
-                    ccc(false);
-                }});
+                ccc(false);
+            }});
     };
 
     this.get_ban=(login, cc)=>{
@@ -91,7 +91,7 @@ const user = function(knex,logger){
             .limit(1)
             .then(function(rows){
                 if (rows.length === 0) {
-                    logger.info("незабанен");
+                    logger.info('незабанен');
                     cc();
                 } else {
                     rows.map(item =>{
@@ -99,14 +99,14 @@ const user = function(knex,logger){
                         cc(item);
                     });
                 }
-            })  
+            })
             .catch(function(e){
-                logger.info("error in find user select",e);
+                logger.info('error in find user select',e);
             });
     };
-    
+
     this.auth=(username,password,c)=>{
-        
+
     };
 };
 

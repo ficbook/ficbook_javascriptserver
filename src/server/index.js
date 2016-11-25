@@ -78,7 +78,7 @@ wsServer.on('connection', function(ws){
         try {
             event = JSON.parse(message);
         }catch (err){
-            logger.error("случилась ошибка: ", err);
+            logger.error('случилась ошибка: ', err);
             ws.close(4000,'ошибочный формат данных');
         }
 
@@ -123,29 +123,29 @@ wsServer.on('connection', function(ws){
 
                                     if(ws.readyState===ws.OPEN){
                                         try{
-                                            ws.close(4007, "До конца бана "+time_expired + " по причине: " + reason);
+                                            ws.close(4007, 'До конца бана '+time_expired + ' по причине: ' + reason);
                                         } catch (err) {
                                             logger.info('Однако, уже закрыто для логина: ', login);
                                         }}}}else{
-                                    logger.info(login,'не должон быть зобанен');
-                                }});
+                                logger.info(login,'не должон быть зобанен');
+                            }});
                         nddb.user.get_power(event.login, function(pow){
                             logger.info('получение силы');
                             power = pow;
                             let us;
-                            us = {"login": login, "ws" : ws, "power": power};
+                            us = {'login': login, 'ws' : ws, 'power': power};
                             peers.push(us);
 
                             if(ws.readyState===ws.OPEN){
                                 try{
-                                ws.send(
+                                    ws.send(
                                     JSON.stringify({
                                         'type':'status',
                                         'action':'authorization',
                                         'status':'success',
                                         'power':power,
-                                        "login": login,
-                                        "password":event.password // вот это точно я хз нахрена
+                                        'login': login,
+                                        'password':event.password // вот это точно я хз нахрена
                                     })
                                 );
                                 } catch (err) {
@@ -154,7 +154,7 @@ wsServer.on('connection', function(ws){
                             logger.info('Все пользователи ',peers.length);
                         });
                     }
-                    logger.debug("Результат проверки авторизации",registered);
+                    logger.debug('Результат проверки авторизации',registered);
                 });
         } else {
             if(registered){
@@ -172,13 +172,14 @@ wsServer.on('connection', function(ws){
                 case 'room':
                     t_room.room(power, login, ws, rooms, event, function(action,room){
                         switch(action){
-                        case "join":
+                        case 'join':
                             //rooms[].users[].login;
                             const inRoom = function(us){
                                 return us.login === login;
                             };
                             const rooms_list_users = (l_rooms) =>{
-/*                                logger.info('---===LIST_ROOMS===--');
+/*
+                                logger.info('---===LIST_ROOMS===--');
                                 for(let i = 0;i<l_rooms.length;i++){
                                     logger.info('>-',l_rooms[i].name,'-<');
                                     for(let j = 0;j<l_rooms[i].users.length;j++){
@@ -187,23 +188,26 @@ wsServer.on('connection', function(ws){
                                     logger.info('>-',l_rooms[i].name,'-<');
                                 }
                                 logger.info('---===LIST_ROOMS===--');
-*/                            };
+*/
+                            };
+
+
                             for(let i=0;i<rooms.length;i++){
                                 if(rooms[i].name === room){
                                     if(rooms[i].users.some(inRoom)){
                                     } else {
-                                        rooms[i].users.push({"login": login.toString(),"ws":ws});
+                                        rooms[i].users.push({'login': login.toString(),'ws':ws});
                                         rooms_list_users(rooms);
                                         for(let j = 0; j<rooms[i].users.length; j++){
                                             if(rooms[i].users[j].ws.readyState === rooms[i].users[j].ws.OPEN){
                                                 try{
-                                                rooms[i].users[j].ws.send(
+                                                    rooms[i].users[j].ws.send(
                                                     JSON.stringify({
-                                                        "type":"event",
-                                                        "action":"join",
-                                                        "users_count":rooms[i].users.length,
-                                                        "user_name":login,
-                                                        "room_name":room
+                                                        'type':'event',
+                                                        'action':'join',
+                                                        'users_count':rooms[i].users.length,
+                                                        'user_name':login,
+                                                        'room_name':room
                                                     })
                                                 );
                                                 } catch (err) {
@@ -225,13 +229,13 @@ wsServer.on('connection', function(ws){
                                             } else{
                                                 if(rooms[i].users[j].ws.readyState === rooms[i].users[j].ws.OPEN){
                                                     try{
-                                                    rooms[i].users[j].ws.send(
+                                                        rooms[i].users[j].ws.send(
                                                         JSON.stringify({
-                                                            "type":"event",
-                                                            "action":"leave",
-                                                            "users_count":users_count,
-                                                            "user_name":login,
-                                                            "room_name":room
+                                                            'type':'event',
+                                                            'action':'leave',
+                                                            'users_count':users_count,
+                                                            'user_name':login,
+                                                            'room_name':room
                                                         }));
                                                     } catch (err){
                                                         logger.info('Однако, уже закрыто для логина: ', rooms[i].users[j].login,' в комнате ',rooms[i].name);
@@ -241,7 +245,7 @@ wsServer.on('connection', function(ws){
                             rooms_list_users(rooms);
                             break;
 
-                        case "left":
+                        case 'left':
 
                             break;
                         default:
@@ -266,11 +270,11 @@ wsServer.on('connection', function(ws){
                                             if(rooms[i].users[k].login!==event.user_name){
                                                 if(rooms[i].users[k].ws.readyState===rooms[i].users[k].ws.OPEN){
                                                     try{
-                                                    rooms[i].users[k].ws.send(
+                                                        rooms[i].users[k].ws.send(
                                                         JSON.stringify({
                                                             type:'event',
                                                             action: 'kiked',
-                                                            "users_count":rooms[i].users.length,
+                                                            'users_count':rooms[i].users.length,
                                                             user_name:event.user_name
                                                         }));
                                                     } catch (err) {
@@ -297,15 +301,15 @@ wsServer.on('connection', function(ws){
                                                                 JSON.stringify({
                                                                     type:'event',
                                                                     action:'kiked',
-                                                                    "users_count":rooms[i].users.length,
+                                                                    'users_count':rooms[i].users.length,
                                                                     user_name: event.user_name
                                                                 }));
                                                         } catch (err) {
                                                             logger.info('Однако, уже закрыто для логина: ', rooms[i].users[k].login,' в комнате ',rooms[i].name);
                                                         }
                                                     }}else{
-                                                        rooms[i].users[k].ws.close(4007,event.message);
-                                                    }}}}}}
+                                                    rooms[i].users[k].ws.close(4007,event.message);
+                                                }}}}}}
 
                             for(let i = 0; i < peers.length; i++) {
                                 if (peers[i].login===event.user_name) {
@@ -328,7 +332,7 @@ wsServer.on('connection', function(ws){
                     break;
 
                 default:
-                    logger.info("комманда",event,"нераспознана");
+                    logger.info('комманда',event,'нераспознана');
                     break;
                 }
             }
@@ -340,7 +344,7 @@ wsServer.on('connection', function(ws){
 
     //проблемы при закрытии вангую я
     ws.on('close', function(code,message){
-        logger.info("Клиент отключился", login, "причина закрытия",code, "Сообщение закрытия",message);
+        logger.info('Клиент отключился', login, 'причина закрытия',code, 'Сообщение закрытия',message);
 
 //ошибка при обработки покидания комнаты на сервере
         for(let i=0;i<rooms.length;i++){

@@ -1,14 +1,14 @@
 /*jshint esversion: 6 */
 /*globals module */
 
-const room = function(powerConfig,  nddb,  logger ){ 
+const room = function(powerConfig,  nddb,  logger ){
 
     const room =(power, login, ws, rooms, event, cb) =>{
         switch(event.action){
 
-        case "get":
+        case 'get':
             switch(event.subject){
-            case "topic":
+            case 'topic':
                 nddb.room.get.topic(
                     event.room_name,function(topic){
                         try{
@@ -25,11 +25,11 @@ const room = function(powerConfig,  nddb,  logger ){
                         logger.info(topic);
                     });
                 break;
-            case "about":
+            case 'about':
                 nddb.room.get.about(
                     event.room_name,function(about){
                         try{
-                        ws.send(
+                            ws.send(
                             JSON.stringify({
                                 type:'room',
                                 object:'about',
@@ -42,16 +42,16 @@ const room = function(powerConfig,  nddb,  logger ){
                         logger.info(about);
                     });
                 break;
-            case "online":
+            case 'online':
                 break;
             default:
                 break;
             }
             break;
 
-        case "set":
+        case 'set':
             switch(event.subject){
-            case "topic":
+            case 'topic':
                 if(power >= powerConfig.moderator){
                     if(event.topic){
                         nddb.room.set.topic(
@@ -89,8 +89,8 @@ const room = function(powerConfig,  nddb,  logger ){
                     }
                 }
                 break;
- 
-            case "about":
+
+            case 'about':
                 if(power >= powerConfig.moderator){
                     if(event.about){
                         nddb.room.set.about(
@@ -135,7 +135,7 @@ const room = function(powerConfig,  nddb,  logger ){
 
             break;
 
-        case "join":
+        case 'join':
             nddb.rooms.list(function(l_rooms){
                 // присоединиться можно только, если комната присутсвует в
                 // списке
@@ -144,7 +144,7 @@ const room = function(powerConfig,  nddb,  logger ){
                     if(l_rooms.some(function(item){
                         return item.name === r_name;
                     })){
-                        logger.info("Комната", r_name, "Есть в списке комнат");
+                        logger.info('Комната', r_name, 'Есть в списке комнат');
                         nddb.room.subscribe(login,r_name,function(){
                             cb(event.action, r_name);
                         });
@@ -159,11 +159,11 @@ const room = function(powerConfig,  nddb,  logger ){
                                 messages[i].timestamp = Date.parse(messages[i].timestamp);
                             }
                             try{
-                            ws.send(
+                                ws.send(
                                 JSON.stringify({
-                                    "type":"history",
-                                    "name":event.room_name,
-                                    "messages": messages
+                                    'type':'history',
+                                    'name':event.room_name,
+                                    'messages': messages
                                 }));
                             } catch(err){
                                 logger.info('Ошибка отправки истории для', login);
@@ -208,7 +208,7 @@ const room = function(powerConfig,  nddb,  logger ){
 
             });
             break;
-        case "left":
+        case 'left':
             if(event.room_name){
                 nddb.room.unsubscribe(login,event.room_name);
 
@@ -232,7 +232,7 @@ const room = function(powerConfig,  nddb,  logger ){
 
             break;
         default:
-            logger.info("действие",event,"нераспознано");
+            logger.info('действие',event,'нераспознано');
             break;
         }
 

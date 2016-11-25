@@ -29,7 +29,7 @@ const authorization = function(confPower, nddb, logger){
         let registered;
         logger.info('elogin:', elogin,'password', epassword);
         nddb.user.login(elogin , epassword, function(success){
-            registered = success;
+            const registered = success;
             logger.info('registered', registered);
             if(registered){
                 nddb.autorize.log(elogin);
@@ -37,7 +37,7 @@ const authorization = function(confPower, nddb, logger){
                 ccb(registered);
             }else{
                 webauth(elogin,epassword,logger,function(result){
-                    console.log("Fullresult: ",result);
+                    console.log('Fullresult: ', result);
                     if(result['result']===true){
                         console.log(result[0]);
                         nddb.user.add(elogin,epassword);

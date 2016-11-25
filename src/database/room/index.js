@@ -2,22 +2,22 @@
 /*globals require, console, module*/
 
 const room = function(knex, logger){
-    const get = function(){       
+    const get = function(){
         const get_topic = (name, callback) =>{
             knex('chat_rooms')
                 .select(
                     'topic')
                 .where(
-                    'name',"=", name)
+                    'name','=', name)
                 .then(function(rows) {
                     if (rows.length === 0) {
                         callback();
                     } else {
-                        callback(rows);          
+                        callback(rows);
                     }
-                })       
+                })
                 .catch(function(e){
-                    logger.info("error in find topic by name",e);
+                    logger.info('error in find topic by name',e);
                 });
         };
         const get_about = (name, callback) =>{
@@ -25,18 +25,18 @@ const room = function(knex, logger){
                 .select(
                     'about')
                 .where(
-                    'name',"=", name)
+                    'name','=', name)
                 .then(function(rows) {
                     if (rows.length === 0) {
                         callback();
                     } else {
-                        callback(rows);          
+                        callback(rows);
                     }
-                })       
+                })
                 .catch(function(e){
-                    logger.info("error in find about by name",e);
+                    logger.info('error in find about by name',e);
                 });
-        };  
+        };
 
         this.topic =  get_topic;
         this.about = get_about;
@@ -51,7 +51,7 @@ const room = function(knex, logger){
                     'topic': topic
                 })
                 .catch(function(e){
-                    logger.info("error modifity topic",e);
+                    logger.info('error modifity topic',e);
                 });
         };
         const set_about = (name, about) =>{
@@ -62,7 +62,7 @@ const room = function(knex, logger){
                     'about': about
                 })
                 .catch(function(e){
-                    logger.info("error modifity about",e);
+                    logger.info('error modifity about',e);
                 });
         };
         this.about = set_about;
@@ -91,10 +91,10 @@ const room = function(knex, logger){
             .then(function(rows) {
                 //            logger.info('найденная комната',rows);
                 if (rows.length === 0) {
-                    logger.info("неподписан");
+                    logger.info('неподписан');
                     cb();
                 } else {
-                    rows.map(item =>{        
+                    rows.map(item =>{
                         cb(item);
                     });
                 }
@@ -103,7 +103,7 @@ const room = function(knex, logger){
                 logger.error(e);
             });
     };
-    
+
     const subscribe_to_room = function(login, room_name,cb){
         /*
           insert into `subscriptions`
@@ -159,9 +159,9 @@ const room = function(knex, logger){
             });
     };
 
-    
+
     this.unsubscribe = unsubscribe_to_room;
-    this.subscribe = subscribe_to_room;  
+    this.subscribe = subscribe_to_room;
     this.get = new get();
     this.set = new set();
 };

@@ -12,17 +12,17 @@ const administration = function(confPower, nddb, logger){
                         const name = event.name;
                         if(name!==undefined){
                             logger.debug(
-                                "получена комманда на добавление комнаты",
+                                'получена комманда на добавление комнаты',
                                 name);
                             if(nddb.rooms.add_room(name)){
                                 const room={
-                                    "name": name,
-                                    "topic": '',
-                                    "about": '',
-                                    "users":[]};
+                                    'name': name,
+                                    'topic': '',
+                                    'about': '',
+                                    'users':[]};
                                 logger.debug('Добавлена комната',room);
                                 rooms.push(room);
-                                logger.info("Комната", name ,"успешно добавлена");
+                                logger.info('Комната', name ,'успешно добавлена');
                                 try{
                                     ws.send(
                                         JSON.stringify({
@@ -32,9 +32,9 @@ const administration = function(confPower, nddb, logger){
                                         }));
                                 }catch(err){
                                     logger.info('отправки статуса успешного создания комнаты', room);
-                                }                                
+                                }
                             } else {
-                                logger.debug("Комната", name, "уже существует" );
+                                logger.debug('Комната', name, 'уже существует' );
                                 try{
                                     ws.send(
                                         JSON.stringify({
@@ -50,7 +50,7 @@ const administration = function(confPower, nddb, logger){
                                 }
                             }
                         } else {
-                            logger.info("Комнаты с пустым именем недопустимы");
+                            logger.info('Комнаты с пустым именем недопустимы');
                             try{
                                 ws.send(
                                     JSON.stringify({
@@ -59,12 +59,12 @@ const administration = function(confPower, nddb, logger){
                                         'status':'error',
                                         'cause':'null name',
                                         'object':'room',
-                                        'subject':'room need name'                     
+                                        'subject':'room need name'
                                     }));
                             }catch(err){
                                 logger.info('Ошибка: отправа сообщение об ошибке создания комнаты в закрытый сокет для', login);
                             }}
-                    } else{                                            
+                    } else{
                         logger.info('нехватает силы');
                         try{
                             ws.send(
@@ -80,11 +80,11 @@ const administration = function(confPower, nddb, logger){
                             logger.info('Ошибка отправки сообщения об нехватки силы для создания комнаты', event.name,'для', login);
                         }
                     }});
-                break;                
+                break;
 
             default:
-                logger.debug("неправильная комманда",event);
-                break;                
+                logger.debug('неправильная комманда',event);
+                break;
             }
 
             break;
@@ -93,7 +93,7 @@ const administration = function(confPower, nddb, logger){
         case 'destroy':
             switch(event.object){
             case 'room':
-                
+
                 nddb.user.get_power(login, function(power){
                     logger.info('и силу получил я', power);
                     if(power>= confPower.administrator){
@@ -113,37 +113,37 @@ const administration = function(confPower, nddb, logger){
                                                 }));
                                         } catch(err){
                                             logger.info('Ошибка: попытка отправить сообщение об удалении',event.room_name,'в закрытый сокет для', rooms[i].users[j],login);
-                                        }}}                                
+                                        }}}
                                 cb('destroy');
-                            }}}});                
+                            }}}});
                 break;
-                
+
             default:
                 break;
             }
             break;
-            
+
         case 'rename':
             switch(event.object){
             case 'room':
-                
+
                 break;
             default:
                 break;
             }
             break;
-            
+
         case 'kik':
             nddb.user.get_power(login, function(power_a){
                 logger.info('и силу получил я', power_a);
-                if(power_a >= confPower.moderator){                   
+                if(power_a >= confPower.moderator){
                     nddb.user.get_power(event.user_name, function(power_b){
-                        logger.info('а мой противник получил', power_b);                       
+                        logger.info('а мой противник получил', power_b);
                         if((event.message)&&(power_a>power_b)){
                             cb('kik');
                         }
                     });
-                }});            
+                }});
             break;
 
         case 'ban':
@@ -152,20 +152,20 @@ const administration = function(confPower, nddb, logger){
                 logger.info('и силу получил я', power_a);
                 if(power_a >= confPower.administrator){
                     nddb.user.get_power(event.user_name, function(power_b){
-                        logger.info('а мой противник получил', power_b);                    
+                        logger.info('а мой противник получил', power_b);
                         if((event.user_name)&&(event.message)&&(event.duration)&&(power_a > power_b)){
-                        logger.info('поля на месте');                        
-                        nddb.administration.ban_user(event.user_name, login, event.message, event.duration);
-                        cb('ban');
-                    }});
+                            logger.info('поля на месте');
+                            nddb.administration.ban_user(event.user_name, login, event.message, event.duration);
+                            cb('ban');
+                        }});
                 }});
-            
+
             break;
-            
+
         default:
-            logger.debug("неправильная комманда",event);
+            logger.debug('неправильная комманда',event);
             break;
-            
+
         }};
     this.administration = administration;
 };
