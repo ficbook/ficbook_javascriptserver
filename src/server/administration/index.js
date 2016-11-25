@@ -133,6 +133,36 @@ const administration = function(confPower, nddb, logger){
             }
             break;
 
+        case 'get':
+            switch(event.object){
+            case 'bans':
+
+                nddb.user.get_power(login, function(power_a){
+                    logger.info('и силу получил я', power_a);
+                    if(power_a >= confPower.moderator){
+                        nddb.administration.list_ban_users(function(rows){
+                            try{
+                                ws.send(
+                                JSON.stringify({
+                                    'type':'list',
+                                    'object':'bans',
+                                    'list': rows
+                                }));
+                            }catch(err){
+                                logger.info(err);
+                            }
+
+
+                        });
+                    }});
+
+                break;
+            default:
+                break;
+            }
+            break;
+
+
         case 'kik':
             nddb.user.get_power(login, function(power_a){
                 logger.info('и силу получил я', power_a);

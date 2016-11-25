@@ -19,7 +19,7 @@ const chat = function(knex, logger){
             });
     };
     const history = (room_name,timestamp,count,cb)=>{
-        logger.info("Получен там стамп:",timestamp);
+        logger.info('Получен там стамп:',timestamp);
         if((count>0)&&(timestamp>0)){
             knex('chat_message_all')
                 .select(
@@ -36,7 +36,7 @@ const chat = function(knex, logger){
                     'chat_rooms.name',
                     room_name
                 )
-                .andWhere(                
+                .andWhere(
                     'timestamp','<',  new Date(timestamp)
                 )
                 .orderBy('chat_message_all.id','desc')
@@ -49,7 +49,7 @@ const chat = function(knex, logger){
                             rows.forEach(function(item,i,arr){
                                 item.login = item.login.toString();
                             });
-                            cb(rows);          
+                            cb(rows);
                         }
                     })
                 .catch(function(e) {
@@ -73,7 +73,7 @@ const chat = function(knex, logger){
                 'chat_rooms.name',
                 room_name
             )
-            .andWhere(                
+            .andWhere(
                 'message','like', '%'+query+'%'
             )
             .orderBy('chat_message_all.id','desc')
@@ -87,15 +87,15 @@ const chat = function(knex, logger){
                             item.login = item.login.toString();
                             item.timestamp = item.timestamp.getTime(); //It is MAGIK
                         });
-                        cb(rows);          
+                        cb(rows);
                     }
                 })
             .catch(function(e) {
                 logger.error(e);
             });
-        
+
     };
-    
+
     this.history = history;
     this.message = message;
     this.search = search;
