@@ -50,6 +50,7 @@ const administration = function(knex,logger){
 
     this.ban_user = ban_user;
     this.unban_user = unban_user;
+    this.list_ban_users = list_ban_users;
 };
 
 module.exports.administration = administration;
