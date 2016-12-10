@@ -21,7 +21,7 @@ const create_users = (knex, logger) =>{
         .catch(function(e) {
             logger.error(e);
         });
-    logger.info("create in", db,"table  users");
+    logger.info('create in', db,'table  users');
 };
 
 const create_chat_rooms =(knex, logger)=>{
@@ -34,7 +34,7 @@ const create_chat_rooms =(knex, logger)=>{
         .catch(function(e) {
             logger.error(e);
         });
-    logger.info("create in", db,"table  chat_rooms");
+    logger.info('create in', db,'table  chat_rooms');
 };
 
 const create_chat_message_all=(knex, logger)=>{
@@ -43,12 +43,14 @@ const create_chat_message_all=(knex, logger)=>{
         table.binary('login', max.login).index().notNullable();
         table.text('message').notNullable();
         table.timestamp('timestamp').defaultTo(knex.fn.now());
+        table.index('timestamp');
         table.integer('room_id').index().notNullable();
+        table.index('room_id');
     })
         .catch(function(e) {
             logger.error(e);
         });
-    logger.info("create in", db,"table  chat_message_all");
+    logger.info('create in', db,'table  chat_message_all');
 };
 
 const create_subscriptions=(knex,logger)=>{
@@ -61,7 +63,7 @@ const create_subscriptions=(knex,logger)=>{
         .catch(function(e) {
             logger.error(e);
         });
-    logger.info("create in", db,"table  subscriptions");
+    logger.info('create in', db,'table  subscriptions');
 };
 
 const create_bans_list=(knex, logger)=>{
@@ -71,12 +73,12 @@ const create_bans_list=(knex, logger)=>{
         table.binary('login_banning', max.login).index().notNullable();
         table.text('reason').notNullable();
         table.timestamp('time_ban').notNullable();
-        table.timestamp('time_expired').notNullable();        
+        table.timestamp('time_expired').notNullable();
     })
         .catch(function(e){
             logger.error(e);
         });
-    logger.info("create in", db, "table  bans_list");
+    logger.info('create in', db, 'table  bans_list');
 };
 
 const init =(knex, logger)=> {
