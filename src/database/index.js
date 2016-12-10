@@ -1,8 +1,5 @@
-/*jshint esversion: 6 */
-/*globals require, __dirname, console, module*/
-
-const config = require('config');
-const logger = require ('../logger');
+import config from 'config';
+import logger from '../logger';
 
 const mydbserver = config.get('database');
 const db = mydbserver.database;
@@ -43,9 +40,9 @@ const close = function(){
 
 
 const ddb = function(){
-    logger.info("ddb object invok");
+    logger.info('ddb object invok');
     this.test =()=>{
-        logger.info("ddb test cal");
+        logger.info('ddb test cal');
     };
     this.init_db =()=>{
         t_init(knex, logger);
