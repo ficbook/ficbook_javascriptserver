@@ -7,7 +7,8 @@ const user = function(knex,logger){
         knex('users')
             .where({
                 login: username
-            }).select()
+            })
+            .select()
             .then(function(rows) {
                 if (rows.length === 0) {
                     logger.info('никого не найдено');

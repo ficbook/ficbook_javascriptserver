@@ -27,14 +27,13 @@ const chat = function(knex, logger){
                     'message',
                     'timestamp'
                 )
-                .join(
-                    'chat_rooms',
-                    'chat_rooms.id',
-                    'chat_message_all.room_id'
-                )
                 .where(
-                    'chat_rooms.name',
-                    room_name
+                    'room_id',
+                    '=',
+                    knex('chat_rooms')
+                        .where('name','=', room_name)
+                        .select('id')
+
                 )
                 .andWhere(
                     'timestamp','<',  new Date(timestamp)
@@ -51,7 +50,8 @@ const chat = function(knex, logger){
                             });
                             cb(rows);
                         }
-                    })
+                    }
+                )
                 .catch(function(e) {
                     logger.error(e);
                 });

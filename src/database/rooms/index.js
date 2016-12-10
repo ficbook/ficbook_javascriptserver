@@ -8,7 +8,7 @@ const rooms = function(list_rooms, knex, logger){
                 return r === room;
             });
     };
-    
+
 
 
     const rooms_list =(callback)=>{
@@ -19,20 +19,20 @@ const rooms = function(list_rooms, knex, logger){
                 'about')
             .then(function(rows) {
                 if (rows.length === 0) {
-                    logger.info("никого не найдено");
+                    logger.info('никого не найдено');
                     callback([]);
                 } else {
                     rows.forEach(function(item, i, arr){
                         item.name = item.name.toString();
                     });
-                    callback(rows);          
+                    callback(rows);
                 }
-            })       
+            })
             .catch(function(e){
-                logger.info("error in find rooms",e);
+                logger.info('error in find rooms',e);
             });
     };
-    
+
 
     const room_add =(room)=>{
         knex('chat_rooms')
@@ -43,7 +43,7 @@ const rooms = function(list_rooms, knex, logger){
                 logger.error(e);
             });
     };
-    
+
 
 //вероятно лучше отдель сначала получать id крмнаты, а потом уж все удалять
     const room_remove=(room)=>{
@@ -57,18 +57,18 @@ const rooms = function(list_rooms, knex, logger){
             .then(
                 knex('chat_rooms')
                     .where({
-                        "name" : room
+                        'name' : room
                     })
                     .del()
                     .catch(function(e) {
                         logger.error(e);
-                    })                   
+                    })
             )
             .catch(function(e){
                 logger.error(e);
             });
-        
-     
+
+
         return true;
     };
 
@@ -77,7 +77,7 @@ const rooms = function(list_rooms, knex, logger){
             cb(rooms);
         });
     };
-    
+
     this.add_room=(room)=>{
         if(find_room(room).length === 0){
             room_add(room);
@@ -85,7 +85,7 @@ const rooms = function(list_rooms, knex, logger){
         } else {
             return false;
         }};
-    
+
     this.remove_room=(room)=>{
         room_remove(room);
     };
