@@ -5,8 +5,8 @@
   "description": "Char server for ficbook users.",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server",
-    "db_init": "node src/util/database.js",
+    "start": "babel-node src/server",
+    "db_init": "babel-node src/util/database.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Loty Gero <lotgyero@gmail.com>",
