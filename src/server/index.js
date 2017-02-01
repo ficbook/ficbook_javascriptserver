@@ -29,7 +29,7 @@ const myServ  = server.listen(confWebServer, function(){
 
 const confWsServer = config.get('instans');
 
-const WebSocketServer = require('ws').Server;
+const WebSocketServer = require('uws').Server;
 const wsServer = new WebSocketServer(confWsServer, function(){
     logger.info('Socket server start listen on', confWsServer);
 });
