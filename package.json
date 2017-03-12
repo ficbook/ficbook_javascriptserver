@@ -14,7 +14,7 @@
   "dependencies": {
     "babel-cli": "^6.18.0",
     "babel-loader": "^6.2.10",
-    "bufferutil": "^1.2.1",
+    "bufferutil": "^3.0.0",
     "config": "^1.21.0",
     "express": "^4.14.0",
     "knex": "^0.12.1",
@@ -23,10 +23,10 @@
     "mysql2": "^1.0.0-rc.11",
     "orm": "^3.1.0",
     "path": "^0.12.7",
-    "pug": "^2.0.0-beta10",
-    "utf-8-validate": "^2.0.0",
+    "pug": "^2.0.0-beta11",
+    "utf-8-validate": "^3.0.1",
     "uuid": "^3.0.1",
-    "uws": "^0.12.0",
+    "uws": "^0.13.0",
     "webpack": "^2.2.1",
     "winston": "^2.2.0",
     "xmlhttprequest": "^1.8.0"
