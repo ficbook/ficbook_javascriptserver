@@ -14,7 +14,7 @@
   "dependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.25.0",
-    "babel-loader": "^7.0.0",
+    "babel-loader": "^7.1.0",
     "bufferutil": "^3.0.1",
     "config": "^1.21.0",
     "express": "^4.14.0",
@@ -27,7 +27,7 @@
     "utf-8-validate": "^3.0.2",
     "uuid": "^3.1.0",
     "uws": "^8.14.0",
-    "webpack": "^2.6.1",
+    "webpack": "^3.0.0",
     "winston": "^2.2.0",
     "xmlhttprequest": "^1.8.0"
   },
