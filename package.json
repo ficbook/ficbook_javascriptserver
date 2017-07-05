@@ -14,11 +14,7 @@
   "dependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
-<<<<<<< HEAD
-    "babel-loader": "^7.1.0",
-=======
     "babel-loader": "^7.1.1",
->>>>>>> 630aca38c872d1846ab8ed718a00b593b023d52c
     "bufferutil": "^3.0.1",
     "config": "^1.26.1",
     "express": "^4.15.3",
@@ -32,11 +28,7 @@
     "uuid": "^3.1.0",
     "uws": "^8.14.0",
     "webpack": "^3.0.0",
-<<<<<<< HEAD
     "winston": "^2.3.1",
-=======
-    "winston": "^2.2.0",
->>>>>>> 630aca38c872d1846ab8ed718a00b593b023d52c
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
