@@ -14,7 +14,7 @@
   "dependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.0",
+    "babel-loader": "^7.1.1",
     "bufferutil": "^3.0.1",
     "config": "^1.21.0",
     "express": "^4.14.0",
@@ -32,6 +32,6 @@
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
-    "jshint": "^2.9.2"
+    "jshint": "^2.9.5"
   }
 }
