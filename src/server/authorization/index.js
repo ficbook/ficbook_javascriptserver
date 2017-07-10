@@ -50,7 +50,7 @@ const authorization = function(confPower, nddb, logger){
                                     'type':'status',
                                     'action':'authorization',
                                     'status':'error',
-                                    'message':result[1]
+                                    'message':result['error']
                                 }));
                         }catch(err){
                             logger.info('Ошибка ошибочного статуса авторизации для ',elogin);
