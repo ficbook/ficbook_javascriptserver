@@ -1,0 +1,43 @@
+digraph G{    
+
+    subgraph claster_authorization {
+        node[shape="box" style="filled", fillcolor="green"];
+        label="autorize"
+        status;
+        authorization;
+        error
+        "result error"
+    }
+    
+    subgraph claster_version {
+        node[shape="box" style="filled", fillcolor="green"];
+        label="version";
+        p_type;        
+    }
+
+    subgraph claster_rooms{
+        node[shape="box" style="filled", fillcolor="green"];
+        label="rooms";
+        p_type
+        list_rooms
+    }
+
+    
+    
+    p_action->authorization
+    p_action->get
+   
+    p_status->error
+    p_cause->"too few"
+    p_object->"rooms list"
+    p_subject->"need more power"
+    p_message->"result error"
+    
+    p_type->status    
+    p_type->version
+    p_type->rooms
+    p_type->room
+    p_type->chat
+    p_type->administration
+    p_type->event
+}

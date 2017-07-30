@@ -1,7 +1,4 @@
-/*jshint esversion: 6 */
-
-const winston = require('winston');
-
+import winston from 'winston';
 const logger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)(

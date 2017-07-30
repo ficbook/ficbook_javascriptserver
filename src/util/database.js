@@ -1,10 +1,9 @@
-/*jshint esversion: 6 */
-/*globals require, __dirname, console*/
+import config from 'config';
 
-const config = require('config');
 //const logger = require ('../logger');
 
-const database = require('../database');
+import database from '../database';
+
 const ddb = database.ddb;
 const nddb = new ddb();
 

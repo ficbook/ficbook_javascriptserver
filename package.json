@@ -19,6 +19,7 @@
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "bufferutil": "^3.0.2",
     "config": "^1.26.1",
     "express": "^4.15.3",
