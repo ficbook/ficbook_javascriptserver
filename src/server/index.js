@@ -286,9 +286,7 @@ wsServer.on('connection', function(ws){
                               JSON.stringify({
                                 type:'event',
                                 action: 'custom',
-                                message: event.user_name +' will be'
-                                  + ' kiked ' + event.message + ''
-                                  + ' by ' +login
+                                message: event.user_name +' will be kiked ' + event.message + ' by ' +login
                               }));
                           } catch (err) {
                             logger.info('Однако, уже закрыто для логина: ', rooms[i].users[k].login,' в комнате ',rooms[i].name);
