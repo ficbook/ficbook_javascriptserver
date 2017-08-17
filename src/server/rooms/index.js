@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-/*globals module */
 
 const rooms = function(powerConfig,  nddb, logger){
 

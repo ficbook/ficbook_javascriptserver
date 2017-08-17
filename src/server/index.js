@@ -279,7 +279,8 @@ wsServer.on('connection', function(ws){
                                 type:'event',
                                 action: 'kiked',
                                 'users_count':rooms[i].users.length,
-                                user_name:event.user_name
+                                user_name:event.user_name,
+                                room_name: rooms[i]
                               }));
                           } catch (err) {
                             logger.info('Однако, уже закрыто для логина: ', rooms[i].users[k].login,' в комнате ',rooms[i].name);

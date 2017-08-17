@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-/*globals require, __dirname, console*/
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 const webauth= function(login, password, logger ,cb){
   const xhr = new XMLHttpRequest();
@@ -49,7 +47,7 @@ const authorization = function(confPower, nddb, logger){
                 JSON.stringify({
                   'type':'status',
                   'action':'authorization',
-                  'status':'error',
+                  'status':'errors',
                   'message':result['error']
                 }));
             }catch(err){
