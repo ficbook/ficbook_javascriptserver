@@ -285,6 +285,7 @@ wsServer.on('connection', function(ws){
                             rooms[i].users[k].ws.send(
                               JSON.stringify({
                                 type:'event',
+                                action: 'custom',
                                 message: event.user_name +'will be'
                                   + ' kiked by' + event.message + 'by' +login
                               }));
