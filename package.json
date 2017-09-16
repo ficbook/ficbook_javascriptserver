@@ -32,7 +32,7 @@
     "utf-8-validate": "^3.0.3",
     "uuid": "^3.1.0",
     "uws": "^8.14.1",
-    "webpack": "^3.5.5",
+    "webpack": "^3.6.0",
     "winston": "^2.3.1",
     "xmlhttprequest": "^1.8.0"
   },
