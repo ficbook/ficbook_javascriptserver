@@ -82,5 +82,3 @@ doc/bug_logs/
 # config
 config/default.json
 
-#node lock
-package-lock.json
