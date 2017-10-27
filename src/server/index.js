@@ -70,8 +70,17 @@ t_rooms.load(function(rooms_l){
   rooms = rooms_l;
 });
 
+
 wsServer.on('connection', function(ws){
   logger.info((new Date())+'Соединение открыто');
+  ws.isAlive = true;
+  ws.on('ping', (a)=>{
+    // console.log('ping',a);
+    ws.ping(a);
+  });
+  ws.on('pong',(a)=>{
+    // console.log('pong',a);
+  });
 
   let login = '';
   let registered = false;
