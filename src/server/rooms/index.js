@@ -74,6 +74,7 @@ const rooms = function(powerConfig,  nddb, logger){
             'count_users': count_users};
         });
         try{
+          logger.info('Отправка списка комнат', rooms_on);
           ws.send(
             JSON.stringify({
               'type':'rooms',
