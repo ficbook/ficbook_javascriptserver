@@ -21,7 +21,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "bufferutil": "^3.0.3",
-    "config": "^1.29.2",
+    "config": "^1.29.4",
     "express": "^4.16.2",
     "knex": "^0.14.2",
     "mariasql": "^0.2.6",
