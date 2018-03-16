@@ -22,7 +22,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "bufferutil": "^3.0.3",
     "config": "^1.30.0",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "knex": "^0.14.4",
     "mariasql": "^0.2.6",
     "mysql": "^2.15.0",
@@ -34,7 +34,7 @@
     "uuid": "^3.2.1",
     "uws": "^9.14.0",
     "webpack": "^4.1.1",
-    "winston": "^3.0.0-rc2",
+    "winston": "^2.4.1",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
