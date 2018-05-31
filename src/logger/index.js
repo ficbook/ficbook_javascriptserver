@@ -1,12 +1,13 @@
 import winston from 'winston';
-const logger = new (winston.createLogger)({
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.simple(),
   transports: [
-    new (winston.transports.Console)(
-      {'timestamp':true},
-      {'colorize':true})
+    new winston.transports.Console({timestamp: true, colorize: true})
   ]
 });
 
-module.exports = logger;
+export{ logger};
 
 logger.info('Logger initilization');

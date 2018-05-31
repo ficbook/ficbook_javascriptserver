@@ -9,7 +9,7 @@ Array.prototype.exterminate = function (value) {
 
 import config from 'config';
 
-import logger from '../logger';
+import {logger} from '../logger';
 import database from '../database';
 
 const ddb = database.ddb;
