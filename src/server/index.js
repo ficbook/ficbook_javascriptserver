@@ -30,13 +30,11 @@ const myServ  = server.listen(confWebServer, function(){
 
 const confWsServer = config.get('instans');
 
-import uws from 'uws';
+import WebSocket from 'websocket';
 
-const WebSocketServer = uws.Server;
+const WebSocketServer = WebSocket.server;
 
-const wsServer = new WebSocketServer(confWsServer, function(){
-  logger.info('Socket server start listen on', confWsServer);
-});
+const wsServer = new WebSocketServer({httpServer: myServ});
 
 const confPower = config.get('power_level');
 

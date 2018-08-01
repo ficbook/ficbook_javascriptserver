@@ -24,8 +24,8 @@
     "path": "^0.12.7",
     "utf-8-validate": "^5.0.1",
     "uuid": "^3.2.1",
-    "uws": "^99.0.0",
     "webpack": "^4.7.0",
+    "websocket": "^1.0.26",
     "winston": "^3.0.0-rc6",
     "xmlhttprequest": "^1.8.0"
   },
@@ -35,6 +35,8 @@
     "@babel/node": "^7.0.0-beta.49",
     "@babel/preset-env": "^7.0.0-beta.49",
     "babel-loader": "^8.0.0-beta.3",
+    "eslint": "^5.2.0",
+    "eslint-plugin-promise": "^3.8.0",
     "jshint": "^2.9.5"
   }
 }
