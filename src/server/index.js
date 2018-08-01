@@ -22,7 +22,7 @@ import https from 'https';
 const app = express();
 const server = http.createServer(app);
 
-const confWebServer = config.get('instans');
+const confWebServer = config.get('webserver');
 
 const myServ  = server.listen(confWebServer, function(){
   logger.info('web server start on', myServ.address());
@@ -30,11 +30,11 @@ const myServ  = server.listen(confWebServer, function(){
 
 const confWsServer = config.get('instans');
 
-import WebSocket from 'websocket';
+import WebSocket from 'ws';
 
-const WebSocketServer = WebSocket.server;
+const WebSocketServer = WebSocket.Server;
 
-const wsServer = new WebSocketServer({httpServer: myServ});
+const wsServer = new WebSocketServer(confWsServer);
 
 const confPower = config.get('power_level');
 

@@ -25,8 +25,8 @@
     "utf-8-validate": "^5.0.1",
     "uuid": "^3.2.1",
     "webpack": "^4.7.0",
-    "websocket": "^1.0.26",
     "winston": "^3.0.0-rc6",
+    "ws": "^6.0.0",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
