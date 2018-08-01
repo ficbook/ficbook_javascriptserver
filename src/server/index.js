@@ -22,7 +22,7 @@ import https from 'https';
 const app = express();
 const server = http.createServer(app);
 
-const confWebServer = config.get('webserver');
+const confWebServer = config.get('instans');
 
 const myServ  = server.listen(confWebServer, function(){
   logger.info('web server start on', myServ.address());
