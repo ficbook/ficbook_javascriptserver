@@ -20,10 +20,10 @@
     "bufferutil": "^4.0.0",
     "config": "^3.2.2",
     "express": "^4.16.3",
-    "knex": "^0.19.4",
+    "knex": "^0.20.4",
     "mariadb": "^2.1.1",
     "mysql": "^2.17.1",
-    "mysql2": "^1.7.0",
+    "mysql2": "^2.0.2",
     "npm": "^6.1.0",
     "orm": "^5.0.0",
     "path": "^0.12.7",
@@ -39,6 +39,6 @@
   "devDependencies": {
     "eslint": "^6.4.0",
     "eslint-plugin-promise": "^4.0.0",
-    "jshint": "^2.9.5"
+    "jshint": "^2.11.0-rc1"
   }
 }
