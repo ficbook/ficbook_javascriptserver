@@ -36,8 +36,10 @@
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.13.8",
     "eslint": "^7.10.0",
     "eslint-plugin-promise": "^4.0.0",
+    "eslint-plugin-standard": "^5.0.0",
     "jshint": "^2.11.0-rc1"
   }
 }
