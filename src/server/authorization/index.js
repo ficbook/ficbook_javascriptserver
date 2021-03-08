@@ -24,7 +24,7 @@ const authorization = function(confPower, nddb, logger){
   const authorization =(ws, event, ccb)=>{
     const elogin = event.login;
     const epassword = event.password;
-    let registered;
+    // let registered;
     logger.info('elogin:', elogin,'password', epassword);
     nddb.user.login(elogin , epassword, function(success){
       const registered = success;

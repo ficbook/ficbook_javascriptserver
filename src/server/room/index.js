@@ -1,9 +1,6 @@
-
 const room = function(powerConfig,  nddb,  logger ){
-
   const room =(power, login, ws, rooms, event, cb) =>{
     switch(event.action){
-
     case 'get':
       switch(event.subject){
       case 'topic':
@@ -253,4 +250,3 @@ const room = function(powerConfig,  nddb,  logger ){
 
 
 module.exports.room = room;
-

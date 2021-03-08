@@ -2,8 +2,8 @@ import config from 'config';
 import {logger} from '../logger';
 
 const mydbserver = config.get('database');
-const db = mydbserver.database;
-const max = config.get('max');
+// const db = mydbserver.database;
+// const max = config.get('max');
 
 let list_rooms = [];
 

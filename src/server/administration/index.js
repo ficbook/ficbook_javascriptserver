@@ -1,4 +1,3 @@
-
 const administration = function(confPower, nddb, logger){
   const administration = function(login, rooms, ws, event, cb){
     switch(event.action){

@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-/*globals require, __dirname, console*/
-
 // убрать из массива элемент по его значению(только один элемент
 // начиная с начала)
 Array.prototype.exterminate = function (value) {
@@ -17,7 +14,7 @@ const nddb = new ddb();
 
 import express from 'express';
 import http from 'http';
-import https from 'https';
+// import https from 'https';
 
 const app = express();
 const server = http.createServer(app);
@@ -62,7 +59,7 @@ let rooms = [];
 const peers =[];
 
 t_rooms.load(function(rooms_l){
-  rooms_l.forEach(function(item,i,arr){
+  rooms_l.forEach(function(item){
     item.users = [];
   });
   rooms = rooms_l;
@@ -76,7 +73,7 @@ wsServer.on('connection', function(ws){
     // console.log('ping',a);
     ws.ping(a);
   });
-  ws.on('pong',(a)=>{
+  ws.on('pong',()=>{
     // console.log('pong',a);
   });
 
@@ -93,7 +90,7 @@ wsServer.on('connection', function(ws){
       ws.close(4000,'ошибочный формат данных');
     }
 
-    let date = new Date();
+    // let date = new Date();
     if(event.type === 'autorize'){
       registered = t_authorization.authorization(
         ws,
@@ -188,25 +185,22 @@ wsServer.on('connection', function(ws){
               const inRoom = function(us){
                 return us.login === login;
               };
-              const rooms_list_users = (l_rooms) =>{
-                /*
-                                logger.info('---===LIST_ROOMS===--');
-                                for(let i = 0;i<l_rooms.length;i++){
-                                    logger.info('>-',l_rooms[i].name,'-<');
-                                    for(let j = 0;j<l_rooms[i].users.length;j++){
-                                        logger.info('>',l_rooms[i].users[j].login);
-                                    }
-                                    logger.info('>-',l_rooms[i].name,'-<');
-                                }
-                                logger.info('---===LIST_ROOMS===--');
-*/
-              };
+              const rooms_list_users = (/* l_rooms */) =>{
 
+                // logger.info('---===LIST_ROOMS===--');
+                // for(let i = 0;i<l_rooms.length;i++){
+                //     logger.info('>-',l_rooms[i].name,'-<');
+                //     for(let j = 0;j<l_rooms[i].users.length;j++){
+                //         logger.info('>',l_rooms[i].users[j].login);
+                //     }
+                //     logger.info('>-',l_rooms[i].name,'-<');
+                // }
+                // logger.info('---===LIST_ROOMS===--');
+              };
 
               for(let i=0;i<rooms.length;i++){
                 if(rooms[i].name === room){
-                  if(rooms[i].users.some(inRoom)){
-                  } else {
+                  if(!rooms[i].users.some(inRoom)){
                     rooms[i].users.push({'login': login.toString(),'ws':ws});
                     rooms_list_users(rooms);
                     for(let j = 0; j<rooms[i].users.length; j++){
@@ -223,7 +217,11 @@ wsServer.on('connection', function(ws){
                           );
                         } catch (err) {
                           logger.info('Однако, уже закрыто для логина: ', rooms[i].users[j].login, ' в комнате',rooms[i].name);
-                        }}}}} else {
+                        }
+                      }
+                    }
+                  }
+                } else {
                   // неправильно считается
                   // количество народа
                   // така удаляется
@@ -250,8 +248,13 @@ wsServer.on('connection', function(ws){
                               }));
                           } catch (err){
                             logger.info('Однако, уже закрыто для логина: ', rooms[i].users[j].login,' в комнате ',rooms[i].name);
-                          }}}}}}}
-
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
 
               rooms_list_users(rooms);
               break;
@@ -356,7 +359,7 @@ wsServer.on('connection', function(ws){
       }
     }
 
-    let connection = message.accept;
+    // let connection = message.accept;
   })
   ;
 

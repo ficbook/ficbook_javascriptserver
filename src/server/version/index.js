@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-/*globals module */
-
 const version = function(confPower, nddb, logger){
   this.version=(power, login, ws,event)=>{
     switch(event.action){
@@ -24,4 +21,3 @@ const version = function(confPower, nddb, logger){
 
 
 module.exports.version = version;
-

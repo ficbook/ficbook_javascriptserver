@@ -1,11 +1,9 @@
-
 const rooms = function(powerConfig,  nddb, logger){
-
   const rooms_list =(cb)=>{
     const l_rooms = [];
     nddb.rooms.list(function(rooms){
       logger.debug('Всего комнат',rooms.length);
-      rooms.forEach(function(item, i, arr) {
+      rooms.forEach(function(item) {
         const room={
           'name': item.name,
           'topic': item.topic,
@@ -21,9 +19,7 @@ const rooms = function(powerConfig,  nddb, logger){
   this.list_rooms_from_db =(power, login, ws, event)=>{
     switch(event.action){
     case 'get':
-
-      if(power=> powerConfig.user){
-
+      if(power >= powerConfig.user){
         rooms_list(function(rooms_l){
           try{
             ws.send(
@@ -62,7 +58,7 @@ const rooms = function(powerConfig,  nddb, logger){
   this.list_rooms=(power, login, rooms, ws, event)=>{
     switch(event.action){
     case 'get':
-      if(power=> powerConfig.user){
+      if(power >= powerConfig.user){
         let rooms_on = rooms.map(function(room){
           const name = room.name;
           const topic = room.topic;

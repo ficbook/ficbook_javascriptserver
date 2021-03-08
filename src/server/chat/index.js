@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-/*globals module */
-
 const chat = function(confPower, nddb, logger){
   const chat = function(power, login, ws, event, rooms){
     const roomIS = function(room){
@@ -9,7 +6,7 @@ const chat = function(confPower, nddb, logger){
       });
     };
     switch(event.action){
-    case 'send':
+    case 'send':{
       switch(event.subject){
       case 'message':
         if((event.message!==undefined)&&( event.room_name !== undefined) ){
@@ -20,10 +17,10 @@ const chat = function(confPower, nddb, logger){
                 logger.info(login,'to',event.room_name,'message:', event.message);
               });
             //rooms[].users[].login;
-            rooms.forEach(function(item,i,arr){
+            rooms.forEach(function(item){
               if(item.name===event.room_name){
                 const time = Date.now();
-                item.users.forEach(function(user,j,arr2){
+                item.users.forEach(function(user){
                   if (user.ws.readyState === user.ws.OPEN) {
                     try{
                       user.ws.send(
@@ -50,7 +47,7 @@ const chat = function(confPower, nddb, logger){
         break;
       }
       break;
-
+    }
     case 'get':
       switch(event.subject){
       case 'history':

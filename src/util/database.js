@@ -1,4 +1,4 @@
-import config from 'config';
+// import config from 'config';
 
 //const logger = require ('../logger');
 
@@ -11,4 +11,3 @@ nddb.init_db();
 nddb.close();
 
 console.log('db util');
-
